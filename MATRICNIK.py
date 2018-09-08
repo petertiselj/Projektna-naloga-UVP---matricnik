@@ -208,7 +208,7 @@ class InvOkno:
         if det(matrika) == 0:
             self.rez['text'] = 'Vaša matrika ni obrnljiva - je singularna.'
         else:
-            self.rez['text'] = 'Inverzna matrika vnešene matrike je ' + str(zaokrozi(inverzna(matrika)))
+            self.rez['text'] = 'Inverzna matrika vnešene matrike je ' + str(zaokrozi(inverzna(matrika))) + '.'
         return
 
     def zapri_okno(self):
@@ -234,6 +234,11 @@ class DetOkno:
         self.frame.grid()
         
     def odpri(self):
+        if hasattr(self, 'vnosi'):
+            for v in range(len(self.vnosi)):
+                for s in range(len(self.vnosi)):
+                    self.vnosi[v][s].grid_forget()
+            self.rez['text'] = ''
         self.vnosi = []
         dimenzija_matrike = self.vnos.get()
         for vrstica in range(int(dimenzija_matrike)):
@@ -252,7 +257,7 @@ class DetOkno:
             for s in range(int(dimenzija_matrike)):
                 vrstica += [float(self.vnosi[v][s].get())]
             matrika += [vrstica]
-        self.rez['text'] = 'Determinanta matrike je ' + str(round(det(matrika), 3))
+        self.rez['text'] = 'Determinanta matrike je ' + str(round(det(matrika), 3)) + '.'
         return
 
     def zapri_okno(self):
@@ -282,6 +287,15 @@ class MnozenjeOkno:
         self.frame.grid()
 
     def odpri1(self):
+        if hasattr(self, 'vnosi1'):
+            for v in range(len(self.vnosi1)):
+                for s in range(len(self.vnosi1[0])):
+                    self.vnosi1[v][s].grid_forget()
+        if hasattr(self, 'vnosi2'):
+            for v in range(len(self.vnosi2)):
+                for s in range(len(self.vnosi2[0])):
+                    self.vnosi2[v][s].grid_forget()
+            self.rez['text'] = ''
         self.tekst_okno3 = tk.Label(self.frame, text = "Vnesita dimenzijo druge matrike, št. vrstic:")
         self.tekst_okno3.grid(row = 2, column = 1)
         self.tekst_okno4 = tk.Label(self.frame, text = str(self.vnos2.get()))
@@ -295,6 +309,15 @@ class MnozenjeOkno:
         return
 
     def odpri2(self):
+        if hasattr(self, 'vnosi1'):
+            for v in range(len(self.vnosi1)):
+                for s in range(len(self.vnosi1[0])):
+                    self.vnosi1[v][s].grid_forget()
+        if hasattr(self, 'vnosi2'):
+            for v in range(len(self.vnosi2)):
+                for s in range(len(self.vnosi2[0])):
+                    self.vnosi2[v][s].grid_forget()
+            self.rez['text'] = ''
         self.vnosi1 = []
         self.vnosi2 = []
         vrstice1 = int(self.vnos1.get())
@@ -334,7 +357,7 @@ class MnozenjeOkno:
             for s in range(stolpci2):
                 vrstica += [float(self.vnosi2[v][s].get())]
             matrika2 += [vrstica]
-        self.rez['text'] = 'Zmnožek matrik je ' + str(zaokrozi(zmnozi(matrika1, matrika2)))
+        self.rez['text'] = 'Zmnožek matrik je ' + str(zaokrozi(zmnozi(matrika1, matrika2))) + '.'
         return
 
     def zapri_okno(self):
@@ -364,6 +387,11 @@ class TransponiranjeOkno:
         self.frame.grid()
         
     def odpri(self):
+        if hasattr(self, 'vnosi'):
+            for v in range(len(self.vnosi)):
+                for s in range(len(self.vnosi[0])):
+                    self.vnosi[v][s].grid_forget()
+            self.rez['text'] = ''
         self.vnosi = []
         vrstice = int(self.vnos1.get())
         stolpci = int(self.vnos2.get())
@@ -384,7 +412,7 @@ class TransponiranjeOkno:
             for s in range(stolpci):
                 vrstica += [float(self.vnosi[v][s].get())]
             matrika += [vrstica]
-        self.rez['text'] = 'Transponiranka vnešene matrike je ' + str(zaokrozi(transponiraj(matrika)))
+        self.rez['text'] = 'Transponiranka vnešene matrike je ' + str(zaokrozi(transponiraj(matrika))) + '.'
         return
 
     def zapri_okno(self):
@@ -416,6 +444,15 @@ class SestevanjeOkno:
         self.frame.grid()
 
     def odpri(self):
+        if hasattr(self, 'vnosi1'):
+            for v in range(len(self.vnosi1)):
+                for s in range(len(self.vnosi1[0])):
+                    self.vnosi1[v][s].grid_forget()
+            self.rez['text'] = ''
+        if hasattr(self, 'vnosi2'):
+            for v in range(len(self.vnosi2)):
+                for s in range(len(self.vnosi2[0])):
+                    self.vnosi2[v][s].grid_forget()
         self.vnosi1 = []
         self.vnosi2 = []
         vrstice = int(self.vnos1.get())
@@ -428,6 +465,7 @@ class SestevanjeOkno:
             self.vnosi1 += [trenutna_vrstica1]
             self.vmesno = tk.Label(self.frame, text = '  ')
             self.vmesno.grid(row = vrstica + 4, column = stolpci + 4)
+        for vrstica in range(vrstice):
             trenutna_vrstica2 = []
             for stolpec in range(stolpci):
                 trenutna_vrstica2 += [tk.Entry(self.frame, width = 5)]
