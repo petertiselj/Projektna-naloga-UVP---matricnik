@@ -111,11 +111,12 @@ def odstej(mat1, mat2):
 def zaokrozi(matrika):
     for v in range(len(matrika)):
         for s in range(len(matrika[0])):
-            matrika[v][s] = round(matrika[v][s], 3)
+            matrika[v][s] = round(matrika[v][s], 2)
     return matrika
 
 import tkinter as tk
 from tkinter import *
+
 #---------------------------Pojavno okno---------------------------
 class prvo_okno:
     
@@ -180,6 +181,11 @@ class InvOkno:
         
 #funkcija odpri poveže vnosna polja in jih zloži v matriko, da te vrednosti nato lahko preberemo     
     def odpri(self):
+        if hasattr(self, 'vnosi'):
+            for v in range(len(self.vnosi)):
+                for s in range(len(self.vnosi)):
+                    self.vnosi[v][s].grid_forget()
+            self.rez['text'] = ''
         self.vnosi = []
         dimenzija_matrike = self.vnos.get()
         for vrstica in range(int(dimenzija_matrike)):
@@ -471,6 +477,7 @@ class SestevanjeOkno:
 def main(): 
     root = tk.Tk()
     app = prvo_okno(root)
+
     root.mainloop()
 
 if __name__ == '__main__':
